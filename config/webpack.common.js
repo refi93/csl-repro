@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // extract css to files
 const tailwindcss = require('tailwindcss')
 const autoprefixer = require('autoprefixer') // help tailwindcss to work
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 
 module.exports = {
   // Where webpack looks to start building the bundle
@@ -49,7 +50,11 @@ module.exports = {
       template: paths.public + '/index.html', // template file
       filename: 'index.html', // output file
     }),
+    new NodePolyfillPlugin(),
   ],
+  experiments: {
+    asyncWebAssembly: true,
+  },
 
   // Determine how modules within the project are treated
   module: {
